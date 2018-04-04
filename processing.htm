@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--HIEPEXP: neu chuyen sang nhieu loai trang can viet tach php ra-->
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <style>
+            hr {
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+                border: 0;
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+            }
+
+        </style>
+        <script src="ajax.js"></script>
+        <script type="text/javascript">
+            xHRObject.open("GET", "showProcess.php?id=" + Number(new Date), true);
+            xHRObject.onreadystatechange = function () {
+                if (xHRObject.readyState == 4 && xHRObject.status == 200) {
+                    document.getElementById('showProcess').innerHTML = xHRObject.responseText;
+                }
+            }
+            xHRObject.send(null);
+//clearing the quantity sold for all those items with sold quantities,
+//removing those items that have been completely sold, i.e., both quantity available and quantity on hold equal to 0.
+            function clickProcess() {
+                xHRObject.open("GET", "showProcess.php?id=" + Number(new Date) + "&action=process", true);
+                xHRObject.onreadystatechange = function () {
+                    if (xHRObject.readyState == 4 && xHRObject.status == 200) {
+
+                        document.getElementById('showProcess').innerHTML = xHRObject.responseText;
+                    }
+                }
+                xHRObject.send(null);
+            }
+        </script>
+    </head>
+    <body>
+        <div class="row" id="header">
+            <div class="col">
+                <ul class="nav nav-pills justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link " href="listing.htm">Listing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="processing.htm">Processing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.htm?manager=true">Logout</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <hr/>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>Processing Form</h3>
+                    <div id="showProcess"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div id="error" class="alert alert-danger">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.getElementById('error').style.display = "none";
+        </script>
+    </body>
+
+</html>

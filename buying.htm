@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--HIEPEXP: neu chuyen sang nhieu loai trang can viet tach php ra-->
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <script src="ajax.js"></script>
+        <script type="text/javascript">
+            xHRObject.open("GET", "showCatalog.php?id=" + Number(new Date), true);
+            xHRObject.onreadystatechange = function () {
+                if (xHRObject.readyState == 4 && xHRObject.status == 200) {
+                    var response = xHRObject.responseText;
+                    document.getElementById('catalog').innerHTML = response;
+                }
+            }
+            xHRObject.send(null);
+
+
+            function addItemToCart(itemNo) {
+                document.getElementById('messageCatalog').className = "";
+                document.getElementById("messageCatalog").innerHTML = "";
+                // decrease quantity 1
+                var table = document.getElementById("tblCatalog");
+                var rows = table.getElementsByTagName("tr");
+                var row;
+                for (var i = 0; i < rows.length; i++) {
+                    if (parseInt(rows[i].cells[0].innerHTML) == parseInt(itemNo)) {
+                        row = rows[i];
+                    }
+                }
+//                var row = table.getElementsByTagName("tr")[itemNo];
+                var oldQuantity = row.getElementsByTagName("td")[4].innerHTML;
+                if (oldQuantity > 0) {
+                    row.getElementsByTagName("td")[4].innerHTML = oldQuantity - 1;
+                    xHRObject.open("GET", "showCart.php?id=" + Number(new Date) + "&itemNumber=" + itemNo + "&action=add", true);
+                    xHRObject.onreadystatechange = function () {
+                        if (xHRObject.readyState == 4 && xHRObject.status == 200) {
+                            var response = xHRObject.responseText;
+                            document.getElementById('cart').innerHTML = response;
+                        }
+                    }
+                    xHRObject.send(null);
+                } else {
+                    document.getElementById('messageCatalog').className = "alert alert-danger";
+                    document.getElementById("messageCatalog").innerHTML = "Sorry this item is not available for sale";
+                }
+                // end
+            }
+
+            function removeItemFromCart(itemNo) {
+                // increase quantity 1
+                var table = document.getElementById("tblCatalog");
+//                var row = table.getElementsByTagName("tr")[itemNo];
+                var rows = table.getElementsByTagName("tr");
+                var row;
+                for (var i = 0; i < rows.length; i++) {
+                    if (parseInt(rows[i].cells[0].innerHTML) == parseInt(itemNo)) {
+                        row = rows[i];
+                    }
+                }
+                var oldQuantity = row.getElementsByTagName("td")[4].innerHTML;
+                row.getElementsByTagName("td")[4].innerHTML = parseInt(oldQuantity) + 1;
+                // end
+
+                xHRObject.open("GET", "showCart.php?id=" + Number(new Date) + "&itemNumber=" + itemNo + "&action=remove", true);
+                xHRObject.onreadystatechange = function () {
+                    if (xHRObject.readyState == 4 && xHRObject.status == 200) {
+                        var response = xHRObject.responseText;
+                        document.getElementById('cart').innerHTML = response;
+                    }
+                }
+                xHRObject.send(null);
+            }
+
+            function confirmPurchase() {
+                //delete session
+                // goods.xml- quanHold | + quan sold in cart session
+                // -> amount to pay 
+                // clear shopping
+                xHRObject.open("GET", "showCart.php?id=" + Number(new Date) + "&action=confirm", true);
+                xHRObject.onreadystatechange = function () {
+                    if (xHRObject.readyState == 4 && xHRObject.status == 200) {
+                        var response = xHRObject.responseText;
+                        document.getElementById('cart').innerHTML = response;
+                    }
+                }
+                xHRObject.send(null);
+            }
+
+            function cancelPurchase() {
+                // change catalog: increase quantity in the catalog
+                var tblCart = document.getElementById("tblCart");
+                var cartLength = tblCart.getElementsByTagName("tr").length - 2;
+
+                var tblCatalog = document.getElementById("tblCatalog");
+                var catalogLength = tblCatalog.getElementsByTagName("tr").length;
+                var rowsOfCatalog = tblCatalog.getElementsByTagName("tr");
+                for (var i = 0; i < cartLength; i++) {
+                    var rowOfCart = tblCart.getElementsByTagName("tr")[i];
+                    var quantityOfCart = rowOfCart.getElementsByTagName("td")[2].innerHTML;
+                    var itemNoOfCart = rowOfCart.getElementsByTagName("td")[0].innerHTML;
+                    // find row with itemNo in catalog
+                    for (var j = 0; j < catalogLength; j++) {
+                        if (rowsOfCatalog[j].getElementsByTagName("td")[0].innerHTML == itemNoOfCart) {
+                            rowsOfCatalog[j].getElementsByTagName("td")[4].innerHTML = parseInt(rowsOfCatalog[j].getElementsByTagName("td")[4].innerHTML) + parseInt(quantityOfCart);
+                        }
+                    }
+                }
+
+                // ajax for update card by xml
+                xHRObject.open("GET", "showCart.php?id=" + Number(new Date) + "&action=cancel", true);
+                xHRObject.onreadystatechange = function () {
+                    if (xHRObject.readyState == 4 && xHRObject.status == 200) {
+                        var response = xHRObject.responseText;
+                        document.getElementById('cart').innerHTML = response;
+                    }
+                }
+                xHRObject.send(null);
+            }
+        </script>
+    </head>
+    <body>
+        <div class="row" id="header">
+            <div class="col">
+                <ul class="nav nav-pills justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.htm">Logout</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <hr/>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div id="catalog"></div>
+                    <div id="messageCatalog"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div id="cart"></div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<customers>
+  <customer>
+    <email>hiep@gmail.com</email>
+    <firstName>hiep</firstName>
+    <lastName>trinh</lastName>
+    <password>hiep</password>
+    <phoneNumber>04 88888888</phoneNumber>
+  </customer>
+  <customer>
+    <email>hiep1@gmail.com</email>
+    <firstName>hiep 1</firstName>
+    <lastName>trinh 1</lastName>
+    <password>hiep</password>
+    <phoneNumber>04 88888888</phoneNumber>
+  </customer>
+  <customer>
+    <email>chuan@gmail.com</email>
+    <firstName>Tran</firstName>
+    <lastName>Cung</lastName>
+    <password>123456</password>
+    <phoneNumber>04 24099899</phoneNumber>
+  </customer>
+</customers>

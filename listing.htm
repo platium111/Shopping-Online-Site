@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--HIEPEXP: neu chuyen sang nhieu loai trang can viet tach php ra-->
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <style>
+            hr {
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+                border: 0;
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+            }
+
+        </style>
+        <script src="ajax.js"></script>
+        <script type="text/javascript">
+            function addItem() {
+                document.getElementById('error').style.display = 'block';
+
+                var name = document.getElementById("name").value;
+                var price = document.getElementById("price").value;
+                var quantity = document.getElementById("quantity").value;
+                var description = document.getElementById("description").value;
+
+                if (name === "" || price === "" || quantity === "" || description === "") {
+                    document.getElementById('error').className = "alert alert-danger";
+                    document.getElementById("error").innerHTML = "Please fill out the input correctly";
+                } else {
+                    if (isNaN(price) || isNaN(quantity)) {
+                        document.getElementById('error').className = "alert alert-danger";
+                        document.getElementById("error").innerHTML = "Input number please";
+                    } else {
+                        xHRObject.open("GET", "addItem.php?id=" + Number(new Date) + "&name=" + name + "&price=" + price +
+                                "&quantity=" + quantity + "&description=" + description, true);
+                        xHRObject.onreadystatechange = function () {
+                            if (xHRObject.readyState == 4 && xHRObject.status == 200) {
+                                var respond = xHRObject.responseText;
+                                if (respond !== "The item is already exist!") {
+                                    document.getElementById('error').className = "alert alert-success";
+                                    document.getElementById('error').innerHTML = xHRObject.responseText;
+                                } else {
+                                    document.getElementById('error').className = "alert alert-danger";
+                                    document.getElementById("error").innerHTML = respond;
+                                }
+                            }
+                        }
+                        xHRObject.send(null);
+                    }
+                }
+            }
+
+            function resetItem() {
+                document.getElementById("name").value = '';
+                document.getElementById("price").value = '';
+                document.getElementById("quantity").value = '';
+                document.getElementById("description").value = '';
+            }
+        </script>
+    </head>
+    <body>
+        <div class="row" id="header">
+            <div class="col">
+                <ul class="nav nav-pills justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link " href="listing.htm">Listing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="processing.htm">Processing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.htm?manager=true">Logout</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <hr/>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>Add new item</h3>
+                    <table class="table">
+                        <tr>
+                            <td>Item name:</td>
+                            <td><input type="email" class="form-control" name="name" id="name" required></td>
+                        </tr>
+                        <tr>
+                            <td>Item price</td>
+                            <td><input type="email" class="form-control" name="price" id="price" required></td>
+                        </tr>
+                        <tr>
+                            <td>Item quantity:</td>
+                            <td><input type="email" class="form-control" name="quantity" id="quantity" required></td>
+                        </tr>
+                        <tr>
+                            <td>Item description:</td>
+                            <td><textarea class="form-control" id="description" name="description" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><button class="btn btn-primary" onclick="addItem();">Add item</button></td>
+                            <td><button class="btn btn-warning" onclick="resetItem();">Reset</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div id="error" class="alert alert-danger">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.getElementById('error').style.display = "none";
+        </script>
+    </body>
+
+</html>

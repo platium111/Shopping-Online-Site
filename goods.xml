@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<goods>
+  <good>
+    <itemNumber>1</itemNumber>
+    <name>yugg1</name>
+    <price>12</price>
+    <quantity>4</quantity>
+    <quantityHold>0</quantityHold>
+    <quantitySold>0</quantitySold>
+    <description>fff</description>
+  </good>
+  <good>
+    <itemNumber>2</itemNumber>
+    <name>yugg2</name>
+    <price>15</price>
+    <quantity>3</quantity>
+    <quantityHold>0</quantityHold>
+    <quantitySold>0</quantitySold>
+    <description>fff</description>
+  </good>
+  <good>
+    <itemNumber>3</itemNumber>
+    <name>yugg4</name>
+    <price>20</price>
+    <quantity>6</quantity>
+    <quantityHold>2</quantityHold>
+    <quantitySold>0</quantitySold>
+    <description>fff</description>
+  </good>
+  <good>
+    <itemNumber>4</itemNumber>
+    <name>yugg6</name>
+    <price>20</price>
+    <quantity>13</quantity>
+    <quantityHold>4</quantityHold>
+    <quantitySold>0</quantitySold>
+    <description>fff</description>
+  </good>
+  <good>
+    <itemNumber>5</itemNumber>
+    <name>chung ta</name>
+    <price>12</price>
+    <quantity>10</quantity>
+    <quantityHold>0</quantityHold>
+    <quantitySold>0</quantitySold>
+    <description>heuu</description>
+  </good>
+  <good>
+    <itemNumber>6</itemNumber>
+    <name>chung ta day</name>
+    <price>43</price>
+    <quantity>5</quantity>
+    <quantityHold>0</quantityHold>
+    <quantitySold>0</quantitySold>
+    <description>heuu</description>
+  </good>
+</goods>

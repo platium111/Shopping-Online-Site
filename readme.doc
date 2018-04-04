@@ -1,0 +1,66 @@
+
+HOMEPAGE: buyonline.htm (https://mercury.swin.edu.au/cos80021/s100861469/Assignment2/buyonline.htm)
+In this file we have 3 links to do
+1. Register
+2. Customer Login
+3. Manager Login
+
+------------------------
+1. Register
+Fill out fields properly, especially with email and phone which follow the correct format as requirement.
+User can register a new account
+
+------------------------
+2. Customer Login
+You can use email and password registered by me:
+username: hiep@gmail.com
+password: hiep
+
++(Customer task) Add, remove, confirm, cancel, logout
+	++(Task) Add item to card: You can click the button "Add one to cart" to buy item. Then, shopping cart will display and show you what you have ordered.
+	++(Task) Remove from cart: click in the button to remove the item from the cart
+	++(Task) Confirm purchase: click the button "Confirm purchase"
+	++(Task) Cancel purchase: items restored in the shopping catalog.
+	++(Task) Logout to see your customer id.
+
+------------------------
+3.Manager Login
+You can use this account:
+username: admin
+password: password
+
++ Listing: You can add a new item by filling out into fields and click button "Add item". You can Reset all fields to blank by clicking "Reset"
+
++ Processing: Every item which has quantity sold greater than 0 will be displayed. "Process" button is used to clear out these items and delete items that have quantity on hold and quantity avalable equal to 0.
+
++ Log out: the system displays the manager id
+
+------------------------
+File in the project
+(1) in project folder www/htdocs/Assignment2
+addItem.php || listing function -> add item
+ajax.js || template ajax object
+buying.htm || display catalog and cart
+buyonline.htm || homepage
+header_manager.php || template for header of manager
+listing.htm || listing display
+login.htm || login display
+loginCustomer.php || perform login for customer
+loginManager.php || perform login for manager
+logout.htm || log out display
+mlogin.htm || login for manager display
+processing.htm || display item sold for manager
+register.htm || register customer display
+register.php || perform register customer
+showCart.php || perform cart functions 
+showCart.xsl || xsl manipulate for cart
+showCatalog.php || perform catalog functions
+showCatalog.xsl || xsl manipulate for catalog
+showProcess.php || perform process for manager
+showProcess.xsl || xsl manipulate for items sold
+
+(2) in www/data folder
+cart.xml || cart xml
+customer.xml || customer account
+goods.xml || items
+manager.txt || manager account

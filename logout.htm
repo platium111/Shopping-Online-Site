@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--HIEPEXP: neu chuyen sang nhieu loai trang can viet tach php ra-->
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <script src="ajax.js"></script>
+        <script type="text/javascript">
+            urlParams = parseURLParams(window.location.href);
+//            alert(typeof urlParams !== 'undefined');
+            if (typeof urlParams !== 'undefined') {
+                xHRObject.open("GET", "showCart.php?id=" + Number(new Date) + "&action=m_logout", true);
+            } else {
+                xHRObject.open("GET", "showCart.php?id=" + Number(new Date) + "&action=logout", true);
+            }
+            xHRObject.onreadystatechange = function () {
+                if (xHRObject.readyState == 4 && xHRObject.status == 200) {
+                    document.getElementById('message').innerHTML = xHRObject.responseText;
+                    document.getElementsByTagName('table')[0].style.display = "none";
+
+                }
+            }
+            xHRObject.send(null);
+
+            function parseURLParams(url) {
+                var queryStart = url.indexOf("?") + 1,
+                        queryEnd = url.indexOf("#") + 1 || url.length + 1,
+                        query = url.slice(queryStart, queryEnd - 1),
+                        pairs = query.replace(/\+/g, " ").split("&"),
+                        parms = {}, i, n, v, nv;
+
+                if (query === url || query === "")
+                    return;
+
+                for (i = 0; i < pairs.length; i++) {
+                    nv = pairs[i].split("=", 2);
+                    n = decodeURIComponent(nv[0]);
+                    v = decodeURIComponent(nv[1]);
+
+                    if (!parms.hasOwnProperty(n))
+                        parms[n] = [];
+                    parms[n].push(nv.length === 2 ? v : null);
+                }
+                return parms;
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div id="message"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div id="error" class="alert alert-danger">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <br />
+                    <p class="font-weight-bold"> Back to daskboard <a href="./buyonline.htm" > Back </a>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.getElementById('error').style.display = "none";
+        </script>
+    </body>
+
+</html>

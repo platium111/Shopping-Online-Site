@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--HIEPEXP: neu chuyen sang nhieu loai trang can viet tach php ra-->
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <script src="ajax.js"></script>
+        <script>
+            function trim(str) {
+                return str.replace(/^\s+|\s+$/g, "");
+            }
+            function managerLogin() {
+                document.getElementById('error').style.display = 'block';
+                var email = document.getElementById("email").value;
+                var password = document.getElementById("password").value;
+                xHRObject.open("GET", "loginManager.php?id=" + Number(new Date) + "&email=" + email + "&password=" + password, true);
+                xHRObject.onreadystatechange = function () {
+                    if (xHRObject.readyState == 4 && xHRObject.status == 200) {
+                        var response = xHRObject.responseText;
+//                        alert("|" + trim(response) + "|");
+                        if (trim(response) == "success") {
+
+                            document.getElementById('error').style.display = "none";
+                            document.getElementById('navContent').className = "alert alert-success";
+                            document.getElementById('navContent').innerHTML = "Login successfully, going next: </br>" +
+                                    "<a href='listing.htm'>Listing</a></br>" +
+                                    "<a href='processing.htm'>Processing</a></br>";
+                        } else {
+                            document.getElementById('error').className = "alert alert-danger";
+                            document.getElementById('error').innerHTML = xHRObject.responseText;
+                        }
+                    }
+                }
+                xHRObject.send(null);
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1> Login to BookOnline </h1>
+
+                    <div class="form-group row">
+                        <label for="idEmail" class="col-sm-2 col-form-label">Username:</label>
+                        <div class="col-sm-10">
+                            <input name="email" type="email" class="form-control" id="email" 
+                                   placeholder="" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="idPassword" class="col-sm-2 col-form-label">Password:</label>
+                        <div class="col-sm-10">
+                            <input name="password" type="password" class="form-control" id="password" placeholder="" required
+                                   >
+                        </div>
+                    </div>
+                    <button type="submit" onclick ="managerLogin();" class="btn btn-primary">Login</button>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div id="error" class="alert alert-danger">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="navContent">
+                <div class="col">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <br />
+                    <p class="font-weight-bold"> Back to daskboard <a href="./buyonline.htm" > Back </a>
+                </div>
+            </div>
+
+        </div>
+        <script>
+            document.getElementById('error').style.display = "none";
+        </script>
+
+    </body>
+
+</html>
